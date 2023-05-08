@@ -1,11 +1,35 @@
 /* HOW EACH ITEM IS TYPED */
 /* OBS: The any type is going to be used to demostrations */
 
+/* How to set auto compilation 
+Processo de build automatico
+1. tsc --init <nome do file>
+2. tsc -w
+3. Vai imprimir automaticamente no browser
+
+*/
+
+/* What is typed in TS 
+
+** Variables
+const a:any = null
+** Arrays
+const array:string[] = ['a']
+** Objects
+const obj:{one: string, two:string} = {one:"Jéssica", two:"Moura"}
+** Functions
+const funcao: (parameter:string) => string = (parameter:string):string => {return parameter}
+** Functions' Parameters
+function (parameter:any){return parameter}
+** Functions' Returnings
+function (parameter):void{return parameter}
+*/
+
 /* A - VARIABLES */
 const a:any = null;
 
 /* B - FUNCTIONS */
-function b(parameter){
+function b(parameter:any){
     return parameter
 }
 
@@ -129,13 +153,16 @@ console.log(p!.innerText)
 /* M - BIGINT */
 /* Para este recurso precisamos mudar a configuração do TS, para versão mínima de ES2020 (target do tsconfig.json) */
 
-let n: bigint
+/* let n: bigint
 n = 1000n
-console.log(n)
+console.log(n) */
 
 /* ------------------------------------- */
 /* N - SYMBOL */
+/* let symbolA = Symbol('a')
+let symbolB = Symbol('a')
 
+console.log(symbolA === symbolB) //return false */
 /* ------------------------------------- */
 /* O - Type Annotation X Type Inference */
 
@@ -146,5 +173,173 @@ const jessie:string = 'jessica'
 const jessica = 'jessie' 
 /* ------------------------------------- */ 
 /* P - NARROWING */
+/* Is a resource that identifies the data type */
+
+/* -1-Type guard */
+
+//Valida o tipo do dado usando typeof
+
+function typeGuard(par1: string | number, par2:string | number){
+    if(typeof par1 === 'string' && par2 === 'string'){
+        console.log(Number(a) + Number(b))
+    } else if(typeof par1 === 'number' && par2 === 'number'){
+        console.log(a + b)
+    } else {
+        console.log("Impossivel somar")
+    }
+}
+
+  /* -2- Valores Truthy and Falsy */
+
+    function operations(par1:number[], par2:string | undefined){
+        if(par2){
+            if(par2 === 'sum'){
+                console.log(par1.reduce((i, total) => i + total))
+            } else if(par2 === 'multiply'){
+                console.log(par1.reduce((i, total) => i * total))
+            }
+        } else{
+            console.log("Operação não definida")
+        }
+    }
+    /*  -3- instanceof */
+    /* Checa se um dado pertence a uma determinada classe */
+
+    class One{
+        name:string
+
+        constructor(name:string){
+            this.name = name
+        }
+    }
+
+    class Two extends One{
+        constructor(name: string){
+            super(name)
+        }
+    }
+
+    const one = new One('Uno')
+    const two = new Two('Due')
+
+    function numbersAcess(par:object){
+        if(par instanceof One){
+            console.log(`Level ${par}`)
+        } else if(par instanceof Two){
+            console.log(`Level Uno and ${par}`)
+        }
+    }
+    /*  -4- operator in */
+    /* Checa se uma propriedade existe no objeto */
+    /* As propriedades de um obj podem ser opcionais */
+
+    class Bag {
+        tag
+        wheels
+        constructor(tag:string, wheels?:boolean | undefined){
+            this.tag = tag
+            if(wheels){
+                this.wheels = wheels
+            }
+        }
+    }
+
+    const bagLux = new Bag('BagLux', true)
+    const bagBag = new Bag('BagBag')
+
+    function showBagInfo(bag:Bag){
+        if('wheels' in bag){
+            console.log('A bolsa têm rodinhas')
+        } else{
+            console.log('A bolsa NÃO têm rodinhas')
+        }
+
+    }
+    
+/* ------------------------------------- */
+/* Q - FUNCTIONS */
+
+/* Como tipar o retorno de uma função */
+
+function imprimir(parametro:string):void{
+    console.log(parametro)
+}
+
+/* -1- funções que não retornam nada */
+/* type void */
+
+function withoutReturn():void{
+    console.log("This function has no return")
+}
+
+/* -2- callback () */
+
+function hello (par:string):string{
+    return `Hello, ${par}`
+}
+
+function greating(par1:(par2:string) => string, par3:string){
+    const greetingYou = par1(par3)
+    return greetingYou
+}
+
+greating(hello, "Jéssica")
+/* -3- Generics Function */
+
+/* Eu não sei qual é o tipo do array que vai usar a função
+
+- string, number, boolean */
+function firstElement<Dunno>(array:Array<Dunno>):Dunno{
+    return array[0]
+}
+
+/* -4- Constraints */
+
+/* Limitação para os tipos que podem ser utilizados pelas generic functions */
+
+function biggestNumber<T extends number | string>(a: T, b: T):T{
+    let biggest:T
+    if(+a > +b){
+        biggest = a
+    } else {
+        biggest = b
+    }
+    return biggest
+}
+
+/* -5- Definindo o tipo de parâmetro em Generics */
+
+/* Os parâmetros precisam ser semelhantes, se não apresentam erro. Porém há a possibilidade de definir o tipo aceito para cada parâmetro. */
+
+function mergeArray<T>(arr1: T[], arr2: T[]){
+    return arr1.concat(arr2)
+}
+
+console.log(mergeArray([1,2,3], [4,5]))
+console.log(mergeArray<string | number>([1,2,3], ["teste","testando"]))
+
+/* No 1º exemplo somos obrigados pela inferência a usar um array de number em ambos os argumentos passados para a função.
+
+No 2º exemplo do console.log, fazemos a manipulação do generics do mergeArray para que aceite tanto string quanto number. */
+
+/* -6- Parâmetros opcionais */
+
+/* Podemos deixar os argumentos opcionais utilizando "?". É preciso que ele sempre seja o último dos argumentos.*/
+
+/* Não podemos esquecer do narrowing pois o valor do argumento opcional pode ser undefined. */
+
+function modernGreeting(name:string, greet?:string){
+    if(greet){
+        return `Olá ${greet} ${name}, tudo bem?`
+    }
+    return `Olá ${name}, tudo bem?`
+}
+
+/* -7-  */
+/* -8-  */
+/* -9-  */
+/* -10-  */
+
+/* ------------------------------------- */
 
 /* ------------------------------------- */
