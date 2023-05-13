@@ -84,7 +84,7 @@ function statusFunction(status) {
 /* L - NON NULL ASSERTION */
 /* ERROR: 'p is possibily null' */
 const p = document.getElementById('some-p');
-console.log(p.innerText);
+// console.log(p.innerText);
 /* ------------------------------------- */
 /* M - BIGINT */
 /* Para este recurso precisamos mudar a configuração do TS, para versão mínima de ES2020 (target do tsconfig.json) */
@@ -203,12 +203,108 @@ greating(hello, "Jéssica");
 function firstElement(array) {
     return array[0];
 }
-/* -4-  */
-/* -5-  */
-/* -6-  */
-/* -7-  */
-/* -8-  */
-/* -9-  */
-/* -10-  */
-/* ------------------------------------- */
+/* -4- Constraints */
+/* Limitação para os tipos que podem ser utilizados pelas generic functions */
+function biggestNumber(a, b) {
+    let biggest;
+    if (+a > +b) {
+        biggest = a;
+    }
+    else {
+        biggest = b;
+    }
+    return biggest;
+}
+/* -5- Definindo o tipo de parâmetro em Generics */
+/* Os parâmetros precisam ser semelhantes, se não apresentam erro. Porém há a possibilidade de definir o tipo aceito para cada parâmetro. */
+function mergeArray(arr1, arr2) {
+    return arr1.concat(arr2);
+}
+/* console.log(mergeArray([1, 2, 3], [4, 5]));
+console.log(mergeArray([1, 2, 3], ["teste", "testando"])); */
+/* No 1º exemplo somos obrigados pela inferência a usar um array de number em ambos os argumentos passados para a função.
+
+No 2º exemplo do console.log, fazemos a manipulação do generics do mergeArray para que aceite tanto string quanto number. */
+/* -6- Parâmetros opcionais */
+/* Podemos deixar os argumentos opcionais utilizando "?". É preciso que ele sempre seja o último dos argumentos.*/
+/* Não podemos esquecer do narrowing pois o valor do argumento opcional pode ser undefined. */
+function modernGreeting(name, greet) {
+    if (greet) {
+        return `Olá ${greet} ${name}, tudo bem?`;
+    }
+    return `Olá ${name}, tudo bem?`;
+}
+/* -7- Parâmetros Default */
+//Já possuem um valor pre definido
+function sumDefault(n, m = 10) {
+    return n + m;
+}
+//console.log(sumDefault(10)) retorna 20
+//console.log(sumDefault(15,12)) retorna 27
+/* -8- Tipo Unknown  */
+/* Ele é usado como o any, pois aceita qualquer valor, porém ele não permite que algo seja executado se não houver validação de tipo */
+/* Nós podemos dizer que o tipo é desconhecido, mas sempre precisaremos fazer um narrowing para descobrir QUAL é de fato o tipo recebido ;-) */
+function doSomething(x) {
+    if (Array.isArray(x)) {
+        console.log(x[0]);
+    }
+    else if (typeof x === 'number') {
+        console.log("X é um número");
+    }
+}
+// doSomething([1, 2, 3])
+// doSomething(232)
+/* -9- Tipo Never */
+/* è semelhante ao void, porém ele é utilizado quando a função não retorna nada, como por exemplo uma função que retorna erros */
+function showErrorMsg(msg) {
+    throw new Error(msg);
+}
+/* -10- Rest Operator */
+/* Em ES6 usamos o rest Operator (...)
+Para aplicar parametros em TS é fácil, basta definir o tipo de dado com a sintaxe de rest
+  */
+function sumAll(...n) {
+    return n.reduce((number, sum) => sum + number);
+}
+// console.log(sumAll(1,2,3,4,5))
+/* -11- Destructuring parameters */
+/* Precisamos determinar o tipo de cada dado que será desestruturado */
+function showProductsDetails({ name, price }) {
+    return `O nome do produto é ${name} e ele custa R${price}`;
+}
+// console.log(showProductsDetails({ name: 'Blusa', price: 123.55 })); //correto
+function showProductDetails(product) {
+    console.log(`O nome do produto é ${product.name} e ele custa R$ ${product.price}`);
+    if (product.isAvailable) {
+        return console.log("O produto está disponível");
+    }
+}
+const shirt = {
+    name: "Camisa",
+    price: 99.99,
+    isAvailable: true
+};
+const sneakers = {
+    name: "Tênis",
+    price: 129.99,
+    isAvailable: false
+};
+showProductDetails(shirt);
+showProductDetails(sneakers);
+/* -3- Interface como parâmetro opcional */
+/*  */
+/* -4- Propriedades readonly */
+/*  */
+/* -5- Index Signature */
+/*  */
+/* -6- Herença de interfaces */
+/*  */
+/* -7- Intersection types */
+/*  */
+/* -8- Readonly array */
+/*  */
+/* -9- Tuplas */
+/*  */
+/* -10- Tuplas com readonly */
+/*  */
 /* ------------------------------------- */ 

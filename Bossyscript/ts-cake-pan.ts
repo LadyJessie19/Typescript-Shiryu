@@ -335,11 +335,136 @@ function modernGreeting(name:string, greet?:string){
     return `Olá ${name}, tudo bem?`
 }
 
-/* -7-  */
-/* -8-  */
-/* -9-  */
-/* -10-  */
+/* -7- Parâmetros Default */ 
+
+//Já possuem um valor pre definido
+
+function sumDefault(n:number, m = 10):number{
+    return n + m
+}
+//console.log(sumDefault(10)) retorna 20
+//console.log(sumDefault(15,12)) retorna 27
+
+/* -8- Tipo Unknown  */
+
+/* Ele é usado como o any, pois aceita qualquer valor, porém ele não permite que algo seja executado se não houver validação de tipo */
+
+/* Nós podemos dizer que o tipo é desconhecido, mas sempre precisaremos fazer um narrowing para descobrir QUAL é de fato o tipo recebido ;-) */
+
+function doSomething(x:unknown){
+    if(Array.isArray(x)){
+        console.log(x[0])
+    } else if(typeof x === 'number'){
+        console.log("X é um número")
+    }
+}
+
+// doSomething([1, 2, 3])
+// doSomething(232)
+
+/* -9- Tipo Never */
+
+/* è semelhante ao void, porém ele é utilizado quando a função não retorna nada, como por exemplo uma função que retorna erros */
+
+function showErrorMsg(msg:string):never{
+    throw new Error(msg)
+}
+
+/* -10- Rest Operator */
+
+/* Em ES6 usamos o rest Operator (...)
+Para aplicar parametros em TS é fácil, basta definir o tipo de dado com a sintaxe de rest
+  */
+
+function sumAll(...n:Array<number>){
+    return n.reduce((number, sum) => sum + number)
+}
+
+// console.log(sumAll(1,2,3,4,5))
+
+/* -11- Destructuring parameters */
+
+/* Precisamos determinar o tipo de cada dado que será desestruturado */
+
+function showProductsDetails({name, price}:{name:string, price:number}):string{
+    return `O nome do produto é ${name} e ele custa R${price}`
+}
+
+console.log(showProductsDetails({name: 'Blusa', price: 123.55})) //correto
+/* console.log(showProductsDetails({name: 'Blusa', age: 123.55})) */ // errado
+/* console.log(showProductsDetails([1,2,3])) */ // errado
 
 /* ------------------------------------- */
+
+/* R - Object Types */
+
+/* -1- O que são Object Types? */
+
+/* São dados que são tipados com o tipo object. Exemplo: object literals e array */
+
+/* Exemplos destes tipos: Interfaces, readonly, tupla */
+
+/* -2- Interface como parâmetro */
+
+/* Simplificar a tipagem dos parametros de uma função */
+
+interface Product {
+    name: string,
+    price: number,
+    isAvailable: boolean
+}
+
+function showProductDetails(product:Product){
+    console.log(`O nome do produto é ${product.name} e ele custa R${product.price}`) 
+    if(product.isAvailable){
+        return console.log("O produto está disponível")
+    }
+}
+
+const shirt:Product = {
+    name: "Camisa",
+    price: 99.99,
+    isAvailable: true
+}
+const sneakers:Product = {
+    name: "Tênis",
+    price: 129.99,
+    isAvailable: false
+}
+
+showProductDetails(shirt)
+showProductDetails(sneakers)
+
+/* -3- Interface como parâmetro opcional */
+
+/*  */
+
+/* -4- Propriedades readonly */
+
+/*  */
+
+/* -5- Index Signature */
+
+/*  */
+
+/* -6- Herença de interfaces */
+
+/*  */
+
+/* -7- Intersection types */
+
+/*  */
+
+/* -8- Readonly array */
+
+/*  */
+
+/* -9- Tuplas */
+
+/*  */
+
+/* -10- Tuplas com readonly */
+
+/*  */
 
 /* ------------------------------------- */
