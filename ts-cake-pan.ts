@@ -526,3 +526,23 @@ cords.y = 13
 /*  */
 
 /* ------------------------------------- */
+
+/* ONE QUICK EXAMPLE - Kanban task typing example */
+
+type ItemStatus = "EM_ANDAMENTO" | "NAO_INICIADO"
+
+type TodoItemType = {
+  id: number
+  text: string
+  status: ItemStatus
+}
+
+type TodoStoreType = {
+  todoList: Array<TodoItemType>
+}
+
+type TodoAction = {
+  type: string
+  payload: Partial<TodoStoreType>
+}
+/* ------------------------------------- */
