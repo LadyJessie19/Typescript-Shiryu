@@ -3,7 +3,7 @@
 let x = 10;
 x = 15;
 console.log(typeof x);
-const y = 3.14329492349;
+const yM = 3.14329492349;
 console.log(y.toPrecision(3));
 // 2 - string
 const firstName = 'Matheus';

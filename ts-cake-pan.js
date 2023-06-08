@@ -308,17 +308,31 @@ let cords = {
     x: 12
 };
 cords.y = 13;
-// cords.z = "teste"
-// console.log(cords)
-/* -6- Herença de interfaces */
-/*  */
-/* todo: Copiar a última aula */
-/* -7- Intersection types */
-/*  */
+const humano = {
+    name: "Larissa",
+    age: 13
+};
+const heroi = {
+    name: 'Joana Moore',
+    age: 40,
+    powers: ['Voar', 'Força', 'Olho laser']
+};
+const Arnold = {
+    name: "Arnold Schwarzenegger",
+    type: "Handgun",
+    caliber: 9
+};
+const Russel = {
+    name: "Russel",
+    type: "Shotgun",
+    caliber: 12
+};
 /* -8- Readonly array */
-/*  */
-/* -9- Tuplas */
-/*  */
-/* -10- Tuplas com readonly */
-/*  */
+/* É um tipo de arrays que deixa os itens como readonly. */
+/* A modificação de itens pode ser feita através de método, mas não podemos aumentar o array */
+let aArray = ["Maça", "Laranja", "Banana"];
+const arrayA = [1, 2, 3, 4, 5];
+const arrayB = [1, 2, "a", 3, true];
+const Jessie = ["Jessica", 24, false];
+const Heinz = ["Henrique", 28, true];
 /* ------------------------------------- */ 

@@ -4,7 +4,7 @@
 // tsc -v
 
 // 2 - primeiro programa
-const x: number = 5;
+const xM: number = 5;
 
 // x = "teste";
 
@@ -43,12 +43,12 @@ let myTuple: [number, string, string[]];
 myTuple = [10, "string", ["a", "b", "c"]];
 
 // 8 - object literals
-const user: { name: string; age: number } = {
+const userM: { name: string; age: number } = {
   name: "Matheus",
   age: 30,
 };
 
-console.log(user);
+console.log(userM);
 
 // user.job = "Programmer"
 // user.age = "30"

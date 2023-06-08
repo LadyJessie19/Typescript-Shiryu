@@ -399,6 +399,8 @@ function showProductsDetails({name, price}:{name:string, price:number}):string{
 
 /* R - Object Types */
 
+/* Objetos literais são muito utilizados nos projetos */
+
 /* -1- O que são Object Types? */
 
 /* São dados que são tipados com o tipo object. Exemplo: object literals e array */
@@ -505,25 +507,115 @@ cords.y = 13
 
 /* -6- Herença de interfaces */
 
-/*  */
+/* Como a propriedade de herança do POO, interfaces pode herdar propriedades de outras interfaces */
 
-/* todo: Copiar a última aula */
+interface Human {
+    name:string,
+    age:number
+}
+
+interface Superhuman extends Human {
+    powers:Array<string>
+}
+
+const humano:Human = {
+    name:"Larissa",
+    age:13
+}
+
+const heroi:Superhuman = {
+    name:'Joana Moore',
+    age: 40,
+    powers: ['Voar', 'Força', 'Olho laser']
+}
+
+// console.log(heroi)
 
 /* -7- Intersection types */
 
-/*  */
+/* São utilizados para criar tipos mais complexos */
+
+/* Dois tipos podem ser concatenados com & */
+
+interface Character {
+    name: string
+}
+
+interface Gun {
+    type:string
+    caliber:number
+}
+
+type ManWithGun = Character & Gun
+
+const Arnold:ManWithGun = {
+    name: "Arnold Schwarzenegger",
+    type: "Handgun",
+    caliber: 9
+}
+
+const Russel:ManWithGun = {
+    name:"Russel",
+    type: "Shotgun",
+    caliber: 12
+}
 
 /* -8- Readonly array */
 
-/*  */
+/* É um tipo de arrays que deixa os itens como readonly. */
+
+/* A modificação de itens pode ser feita através de método, mas não podemos aumentar o array */
+
+let aArray:ReadonlyArray<string> = ["Maça", "Laranja", "Banana"]
+
+//aArray[3] = "Mamão"
+
+// console.log(aArray)
 
 /* -9- Tuplas */
 
-/*  */
+/* É um tipo de array, porém definimos a quantidade e o tipo de elementos */
+
+/* Criamos um novo type, e nele inserimos um array com os tipos necessários */
+
+/* Um esqueleto que demostra como um elelemnto deve ser */
+
+/* Uma tupla é um array que não pode ser modificado. */
+
+/* Ao invés de dizermos que o array é "number[]", podemos definir para cada elemento do array um tipo específico. */
+
+type fiveNumbers = [number, number, number, number, number]
+type fourNumbers = [number, number, string, number, boolean]
+
+const arrayA:fiveNumbers = [1,2,3,4,5]
+const arrayB:fourNumbers = [1,2,"a",3,true]
+
+type NameAge = [string, number, boolean]
+
+const Jessie:NameAge = ["Jessica", 24, false]
+const Heinz:NameAge = ["Henrique", 28, true]
+
+// Jessie[1] = 23
+
+// console.log(Jessie)
 
 /* -10- Tuplas com readonly */
 
-/*  */
+/* Tipo super restrito */
+
+/* Limita quantos itens teremos, qual o tipo de cada um e também não são modificáveis */
+
+/* Uma tupla é imutável */
+
+type tupleNumbers = readonly [number, number]
+
+function showNumbers(numbers: tupleNumbers){
+    // numbers[0] = 10
+    console.log(numbers[0])
+    console.log(numbers[1])
+}
+
+showNumbers([1,2])
 
 /* ------------------------------------- */
 
@@ -545,4 +637,72 @@ type TodoAction = {
   type: string
   payload: Partial<TodoStoreType>
 }
+/* ------------------------------------- */
+
+/* S - Criação de tipos */
+
+/* -1- Sobre a criação de tipos */
+
+/*  */
+
+/* ------------------------------------- */
+
+/* -2- Revisão de generics */
+
+/*  */
+
+/* ------------------------------------- */
+
+/* -3- Reduzindo o tipo aceito em Generics */
+
+/*  */
+
+/* ------------------------------------- */
+
+/* -4- Generics com interface */
+
+/*  */
+
+/* ------------------------------------- */
+
+/* -5- Type parameters */
+
+/*  */
+
+/* ------------------------------------- */
+
+/* -6- Keyof type operator */
+
+/*  */
+
+/* ------------------------------------- */
+
+/* -7- Typeof type operator */
+
+/*  */
+
+/* ------------------------------------- */
+
+/* -8- Indexed access types */
+
+/*  */
+
+/* ------------------------------------- */
+
+/* -9- Conditional types */
+
+/*  */
+
+/* ------------------------------------- */
+
+/* -10- Conditional types */
+
+/*  */
+
+/* ------------------------------------- */
+
+/* -11- Template literals type */
+
+/*  */
+
 /* ------------------------------------- */

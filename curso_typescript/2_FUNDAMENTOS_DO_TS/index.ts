@@ -5,7 +5,7 @@ x = 15
 
 console.log(typeof x)
 
-const y: number = 3.14329492349
+const yM: number = 3.14329492349
 
 console.log(y.toPrecision(3))
 
